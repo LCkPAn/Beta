@@ -54,6 +54,7 @@ class scene extends Phaser.Scene {
         this.player.move();
         this.brick.wallcollant();
 
+
         /*switch (true) {
             case (this.cursors.space.isDown || this.cursors.up.isDown) && this.player.player.body.onFloor():
                 this.player.jump()

@@ -26,6 +26,7 @@ class Player {
                     break;
                 case Phaser.Input.Keyboard.KeyCodes.D:
                     me.dDown=true;
+                    break;
                 case Phaser.Input.Keyboard.KeyCodes.S:
                     me.sDown=true;
                     break;
@@ -73,26 +74,18 @@ class Player {
     moveRight() {
         this.player.setVelocityX(400);
         this.player.setFlipX(false);
-        if (this.player.body.onFloor()) {
-        }
     }
 
     moveLeft() {
         this.player.setVelocityX(-400);
-        if (this.player.body.onFloor()) {
-        }
         this.player.setFlipX(true);
     }
     moveBack(){
-        this.player.setVelocityY(200);
-        if (this.player.body.onFloor()) {
-        }
+        this.player.setVelocityY(400);
     }
 
     stop() {
         this.player.setVelocityX(0);
-        if (this.player.body.onFloor()) {
-        }
     }
 
     move(){
@@ -134,30 +127,33 @@ class Player {
 
 
     transform() {
-            if (!this.player.boule)
-            {
-                this.player.setTexture('boule');
-                this.player.setBounce(1.3, 1.3);
-                this.player.body.setSize(190, 190);
-                this.player.body.setMaxVelocityY(800);
-                this.player.body.setMaxVelocityX(400);
-                this.player.setCollideWorldBounds(false);
-                this.player.body.position.y = this.player.body.position.y - 90;
-                this.player.boule = true;
+        if (!this.player.boule)
+        {
+            this.player.visible=false;
+            this.player.setBounce(1.3, 1.3);
+            this.player.body.setCircle(90);
+            this.player.body.setMaxVelocityY(800);
+            this.player.body.setMaxVelocityX(400);
+            this.player.setCollideWorldBounds(false);
+            this.player.body.position.y = this.player.body.position.y - 90;
+            this.player.boule = true;
 
-            }
-            else
-            {
-                this.player.setTexture('player');
-                this.player.setBounce(0, 0);
-                this.player.body.setSize(150, 150);
-                this.player.setCollideWorldBounds(false);
-                this.player.boule = false;
-            }
-
+        }
+        else
+        {
+            this.player.setTexture('player');
+            this.player.visible=true;
+            this.player.setBounce(0, 0);
+            this.player.body.setSize(150, 150);
+            this.player.setCollideWorldBounds(false);
+            this.player.boule = !this.player.boule;
         }
 
     }
+
+}
+
+
 
 
 
