@@ -13,6 +13,7 @@ class scene extends Phaser.Scene {
         this.load.image('player', 'assets/images/child.png');
         this.load.image('boule', 'assets/images/boule.png');
         this.load.image('move', 'assets/images/ech.png');
+        this.load.image('col', 'assets/images/hce.png');
         // Load the export Tiled JSON
         this.load.tilemapTiledJSON('map', 'assets/tilemaps/Alpha1.json');
 
@@ -22,14 +23,14 @@ class scene extends Phaser.Scene {
 
     create() {
 
+        //Tilled créer la base
         const backgroundImage = this.add.image(0, 0, 'background').setOrigin(0, 0);
         backgroundImage.setScale(2, 0.8);
         const map = this.make.tilemap({key: 'map'});
-
         const tileset = map.addTilesetImage('Alpha_test1', 'tiles');
         this.platforms = map.createLayer('Sol', tileset);
 
-        this.platforms.setCollisionByExclusion(-1, true);
+
         this.cursors = this.input.keyboard.createCursorKeys();
 
 
@@ -38,11 +39,18 @@ class scene extends Phaser.Scene {
 
         this.brick = new Brick(this,this.player);
 
-        this.cameras.main.startFollow(this.player.player, false,);
-        this.cameras.main.zoomTo(0.8);
+        // Camera
+        this.cameras.main.startFollow(this.player.player);
+        /*this.cameras.main.centerOn(640,360);*/
+        this.cameras.main.setDeadzone(600,400);
+        this.cameras.main.zoomTo(1);
         this.cameras.main.setRoundPixels(true);
 
+
         this.player.initKeyboard();
+
+        // Collide
+        this.collider = new Collider(this, this.player);
 
     }
 

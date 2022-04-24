@@ -3,9 +3,9 @@ class Player {
 
     constructor(scene) {
         this.scene = scene
-        this.player = this.scene.physics.add.sprite(10, 300, 'player');
+        this.player = this.scene.physics.add.sprite(8000, 650, 'player');
         this.player.setCollideWorldBounds(false);
-        this.player.body.setSize(80, 150);
+        this.player.body.setSize(80, 130);
         this.scene.physics.add.collider(this.player, this.scene.platforms);
         this.player.boule = false;
 
@@ -64,7 +64,7 @@ class Player {
         else {
             this.flag1=false
             if (this.player.body.onFloor()){
-                this.player.setVelocityY(-600);
+                this.player.setVelocityY(-500);
                 console.log('jump');
             }
         }
@@ -130,10 +130,11 @@ class Player {
         if (!this.player.boule)
         {
             this.player.visible=false;
-            this.player.setBounce(1.3, 1.3);
-            this.player.body.setCircle(90);
-            this.player.body.setMaxVelocityY(800);
-            this.player.body.setMaxVelocityX(400);
+            this.player.setBounce(1.4, 2);
+            this.player.body.setSize(150,150);
+            this.player.body.setMaxVelocityY(860);
+            this.player.body.setMaxVelocityX(600);
+            this.scene.cameras.main.zoomTo(0.8);
             this.player.setCollideWorldBounds(false);
             this.player.body.position.y = this.player.body.position.y - 90;
             this.player.boule = true;
@@ -144,7 +145,8 @@ class Player {
             this.player.setTexture('player');
             this.player.visible=true;
             this.player.setBounce(0, 0);
-            this.player.body.setSize(150, 150);
+            this.player.body.setSize(80, 130);
+            this.scene.cameras.main.zoomTo(1);
             this.player.setCollideWorldBounds(false);
             this.player.boule = !this.player.boule;
         }

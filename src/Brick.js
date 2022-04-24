@@ -1,8 +1,8 @@
 class Brick{
 
-    constructor(scene, Player) {
+    constructor(scene, player) {
         this.scene = scene
-        this.player = Player
+        this.player = player
         const map = this.scene.make.tilemap({key: 'map'});
 
 
