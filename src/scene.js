@@ -14,8 +14,10 @@ class scene extends Phaser.Scene {
         this.load.image('boule', 'assets/images/boule.png');
         this.load.image('move', 'assets/images/ech.png');
         this.load.image('col', 'assets/images/hce.png');
+        this.load.image('foe', 'assets/images/foe.png');
         // Load the export Tiled JSON
         this.load.tilemapTiledJSON('map', 'assets/tilemaps/Alpha1.json');
+
 
 
     }
@@ -35,14 +37,32 @@ class scene extends Phaser.Scene {
 
 
         this.player = new Player(this);
-
-
         this.brick = new Brick(this,this.player);
+        this.foe = new foe(this);
 
         // Camera
-        this.cameras.main.startFollow(this.player.player);
+
+        this.cameras.main.startFollow(this.player.player, true,1,1,0, 200);
+        /*game.camera.follow(player.player, Phaser.camera.FOLLOW_LOCKON, 0.1, 0.1);*/
         /*this.cameras.main.centerOn(640,360);*/
-        this.cameras.main.setDeadzone(600,400);
+
+        /*this.cameras.main.setDeadzone(100,100);
+
+
+
+        this.moveCam = false;
+
+        this.input.on('pointerdown', function () {
+            this.moveCam = (this.moveCam) ? false: true;
+        }, this);
+
+        if (this.cameras.main.deadzone)
+        {
+            const graphics = this.add.graphics().setScrollFactor(0);
+            graphics.lineStyle(2, 0x00ff00, 1);
+            graphics.strokeRect(300, 300, this.cameras.main.deadzone.width, this.cameras.main.deadzone.height);
+        }*/
+
         this.cameras.main.zoomTo(1);
         this.cameras.main.setRoundPixels(true);
 

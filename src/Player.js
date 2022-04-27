@@ -3,7 +3,7 @@ class Player {
 
     constructor(scene) {
         this.scene = scene
-        this.player = this.scene.physics.add.sprite(8000, 650, 'player');
+        this.player = this.scene.physics.add.sprite(0, 650, 'player');
         this.player.setCollideWorldBounds(false);
         this.player.body.setSize(80, 130);
         this.scene.physics.add.collider(this.player, this.scene.platforms);
@@ -134,6 +134,7 @@ class Player {
             this.player.body.setSize(150,150);
             this.player.body.setMaxVelocityY(860);
             this.player.body.setMaxVelocityX(600);
+            this.scene.cameras.main.startFollow(this.player, true,1,1,0, 20);
             this.scene.cameras.main.zoomTo(0.8);
             this.player.setCollideWorldBounds(false);
             this.player.body.position.y = this.player.body.position.y - 90;
@@ -148,6 +149,7 @@ class Player {
             this.player.body.setSize(80, 130);
             this.scene.cameras.main.zoomTo(1);
             this.player.setCollideWorldBounds(false);
+            this.scene.cameras.main.startFollow(this.player, true,1,1,0, 200);
             this.player.boule = !this.player.boule;
         }
 
