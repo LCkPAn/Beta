@@ -15,6 +15,8 @@ class scene extends Phaser.Scene {
         this.load.image('move', 'assets/images/ech.png');
         this.load.image('col', 'assets/images/hce.png');
         this.load.image('foe', 'assets/images/foe.png');
+        this.load.image('spike', 'assets/images/spike.png');
+        this.load.image('spikes', 'assets/images/ekips.png');
         // Load the export Tiled JSON
         this.load.tilemapTiledJSON('map', 'assets/tilemaps/Alpha1.json');
 
@@ -42,7 +44,9 @@ class scene extends Phaser.Scene {
 
         // Camera
 
-        this.cameras.main.startFollow(this.player.player, true,1,1,0, 200);
+        this.cameras.main.startFollow(this.player.player, true,1,1,0, 300);
+        this.cameras.main.setDeadzone(100,50);
+        this.cameras.main.zoomTo(0.75);
         /*game.camera.follow(player.player, Phaser.camera.FOLLOW_LOCKON, 0.1, 0.1);*/
         /*this.cameras.main.centerOn(640,360);*/
 
@@ -62,6 +66,16 @@ class scene extends Phaser.Scene {
             graphics.lineStyle(2, 0x00ff00, 1);
             graphics.strokeRect(300, 300, this.cameras.main.deadzone.width, this.cameras.main.deadzone.height);
         }*/
+
+
+        this.spikes = this.physics.add.group({
+            allowGravity: false,
+            immovable: true,
+        })
+        map.getObjectLayer('Spikes').objects.forEach((spikes) => {
+            const spikeSprite = this.spikes.create(spikes.x, spikes.y, 'spikes').setOrigin(0);
+            spikeSprite.body.setSize(spikes.width, spikes.height).setOffset(0, 20);
+        })
 
         this.cameras.main.zoomTo(1);
         this.cameras.main.setRoundPixels(true);
