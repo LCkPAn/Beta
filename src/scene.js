@@ -44,9 +44,17 @@ class scene extends Phaser.Scene {
 
         // Camera
 
-        this.cameras.main.startFollow(this.player.player, true,1,1,0, 300);
-        this.cameras.main.setDeadzone(100,50);
+        this.pointCamera = this.physics.add.sprite(100,100);
+        this.pointCamera.body.setAllowGravity(false);
+        this.pointCamera.setImmovable(true);
+
+
+
+        this.cameras.main.startFollow(this.pointCamera, true,1,1,0, 300);
+
         this.cameras.main.zoomTo(0.75);
+
+        this.cameras.main.setRoundPixels(true);
         /*game.camera.follow(player.player, Phaser.camera.FOLLOW_LOCKON, 0.1, 0.1);*/
         /*this.cameras.main.centerOn(640,360);*/
 
@@ -64,10 +72,12 @@ class scene extends Phaser.Scene {
         {
             const graphics = this.add.graphics().setScrollFactor(0);
             graphics.lineStyle(2, 0x00ff00, 1);
-            graphics.strokeRect(300, 300, this.cameras.main.deadzone.width, this.cameras.main.deadzone.height);
+            graphics.strokeRect(100, 100, this.cameras.main.deadzone.width, this.cameras.main.deadzone.height);
         }*/
 
 
+
+        //Spikes
         this.spikes = this.physics.add.group({
             allowGravity: false,
             immovable: true,
@@ -77,14 +87,18 @@ class scene extends Phaser.Scene {
             spikeSprite.body.setSize(spikes.width, spikes.height).setOffset(0, 20);
         })
 
-        this.cameras.main.zoomTo(1);
-        this.cameras.main.setRoundPixels(true);
+        // Collide
+        this.collide = this.physics.add.group({
+            allowGravity: false,
+            immovable: true,
+        });
+        map.getObjectLayer('Collide').objects.forEach((col) => {
+            this.collideSprite = this.collide.create(col.x, col.y, col.height).setOrigin(0).setDisplaySize(col.width,col.height).visible=false;
 
+        });
+        this.physics.add.collider(this.player.player, this.collide);
 
         this.player.initKeyboard();
-
-        // Collide
-        this.collider = new Collider(this, this.player);
 
     }
 
@@ -95,7 +109,15 @@ class scene extends Phaser.Scene {
     update() {
         this.player.move();
         this.brick.wallcollant();
+        this.pointCamera.x = this.player.player.x
+        this.pointCamera.y = this.player.player.y
 
+
+        /*if(this.player.player.body.blocked.down===true){
+            this.cameras.main.startFollow(this.player.player, true,1,1,0, 300);
+        }else{
+            this.cameras.main.stopFollow(this.player.player)
+        }*/
 
         /*switch (true) {
             case (this.cursors.space.isDown || this.cursors.up.isDown) && this.player.player.body.onFloor():
