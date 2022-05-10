@@ -44,7 +44,8 @@ class scene extends Phaser.Scene {
 
         // Camera
 
-        this.pointCamera = this.physics.add.sprite(100,100);
+        this.pointCamera = this.physics.add.sprite(0,this.player.player.body.y);
+        this.cameras.main.setDeadzone(100,100);
         this.pointCamera.body.setAllowGravity(false);
         this.pointCamera.setImmovable(true);
 
@@ -109,8 +110,9 @@ class scene extends Phaser.Scene {
     update() {
         this.player.move();
         this.brick.wallcollant();
-        this.pointCamera.x = this.player.player.x
-        this.pointCamera.y = this.player.player.y
+        console.log( this.pointCamera.body.x)
+        this.pointCamera.body.x = this.player.player.body.x
+
 
 
         /*if(this.player.player.body.blocked.down===true){

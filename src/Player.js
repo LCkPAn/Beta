@@ -9,6 +9,7 @@ class Player {
         this.scene.physics.add.collider(this.player, this.scene.platforms);
         this.player.boule = false;
 
+
     }
 
 
@@ -135,7 +136,6 @@ class Player {
             this.player.body.setMaxVelocityY(860);
             this.player.body.setMaxVelocityX(600);
             this.player.setCollideWorldBounds(false);
-            this.scene.cameras.main.startFollow(this.player, true,1,1,0, 300);
             this.player.body.position.y = this.player.body.position.y - 30;
             this.player.boule = true;
 
@@ -146,7 +146,6 @@ class Player {
             this.player.visible=true;
             this.player.setBounce(0, 0);
             this.player.body.setSize(80, 130);
-            this.scene.cameras.main.startFollow(this.player, true,1,1,0, 300);
             this.player.setCollideWorldBounds(false);
             this.player.boule = !this.player.boule;
         }
