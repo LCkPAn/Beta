@@ -3,7 +3,7 @@ class Player {
 
     constructor(scene) {
         this.scene = scene
-        this.player = this.scene.physics.add.sprite(12000, -850, 'player');
+        this.player = this.scene.physics.add.sprite(6000, 650, 'player');
         this.player.setCollideWorldBounds(false);
         this.player.body.setSize(80, 130);
         this.scene.physics.add.collider(this.player, this.scene.platforms);

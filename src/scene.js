@@ -42,10 +42,16 @@ class scene extends Phaser.Scene {
         this.brick = new Brick(this,this.player);
         this.foe = new foe(this);
 
+
+       /* this.pointCamera = this.physics.add.sprite(0,this.player.player.body.y);
+        this.cameras.main.setDeadzone(100,100);
+        this.pointCamera.body.setAllowGravity(false);
+        this.pointCamera.setImmovable(true);*/
+
         // Camera
 
         this.cameras.main.startFollow(this.player.player, true,1,1,0, 300);
-        this.cameras.main.setDeadzone(100,50);
+        //this.cameras.main.setDeadzone(100,50);
         this.cameras.main.zoomTo(0.75);
         /*game.camera.follow(player.player, Phaser.camera.FOLLOW_LOCKON, 0.1, 0.1);*/
         /*this.cameras.main.centerOn(640,360);*/
