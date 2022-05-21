@@ -28,8 +28,7 @@ class scene extends Phaser.Scene {
     create() {
 
         //Tilled créer la base
-        const backgroundImage = this.add.image(-1000, -1000, 'background').setOrigin(0, 0);
-        backgroundImage.setScale(2, 0.8);
+        const backgroundImage = this.add.image(-2000, -3000, 'background').setOrigin(0, 0);
         const map = this.make.tilemap({key: 'map'});
         const tileset = map.addTilesetImage('Alpha_test1', 'tiles');
         const tilesetP1 = map.addTilesetImage('Tileaqua', 'tilaqua');
