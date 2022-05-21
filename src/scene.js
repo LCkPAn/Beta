@@ -6,10 +6,10 @@ class scene extends Phaser.Scene {
         // At last image must be loaded with its JSON
 
        /* this.load.atlas('player', 'assets/images/kenney_player.png', 'assets/images/kenney_player_atlas.json');*/
-        this.load.image('tiles', 'assets/tilesets/platformPack_tilesheet.png');
         this.load.image('player', 'assets/images/child.png');
         this.load.atlas('robot', 'assets/images/kenney_player.png', 'assets/images/kenney_player_atlas.json');
         this.load.image('tiles', 'assets/tilesets/platformPack_tilesheet.png');
+        this.load.image('tilaqua', 'assets/tilesets/tilesaqua.png');
         this.load.image('player', 'assets/images/child.png');
         this.load.image('boule', 'assets/images/boule.png');
         this.load.image('move', 'assets/images/ech.png');
@@ -28,11 +28,17 @@ class scene extends Phaser.Scene {
     create() {
 
         //Tilled créer la base
-        const backgroundImage = this.add.image(0, 0, 'background').setOrigin(0, 0);
+        const backgroundImage = this.add.image(-1000, -1000, 'background').setOrigin(0, 0);
         backgroundImage.setScale(2, 0.8);
         const map = this.make.tilemap({key: 'map'});
         const tileset = map.addTilesetImage('Alpha_test1', 'tiles');
-        this.platforms = map.createLayer('Sol', tileset);
+        const tilesetP1 = map.addTilesetImage('Tileaqua', 'tilaqua');
+
+        this.platforms = map.createLayer('Sol', tilesetP1);
+        this.tree = map.createLayer('Arbre', tilesetP1);
+        this.Plan1 = map.createLayer('Parallax', tilesetP1);
+        this.Plan2 = map.createLayer('Parallax1', tilesetP1);
+        this.fleur = map.createLayer('Fleur', tilesetP1);
 
 
         this.cursors = this.input.keyboard.createCursorKeys();
@@ -63,7 +69,7 @@ class scene extends Phaser.Scene {
 
         //this.cameras.main.startFollow(this.pointCamera, true,1,1,0, 300);
 
-        this.cameras.main.zoomTo(0.75);
+        this.cameras.main.zoomTo(0.80);
 
         this.cameras.main.setRoundPixels(true);
         /*game.camera.follow(player.player, Phaser.camera.FOLLOW_LOCKON, 0.1, 0.1);*/
@@ -109,6 +115,8 @@ class scene extends Phaser.Scene {
         });
         this.physics.add.collider(this.player.player, this.collide);
 
+
+
         this.player.initKeyboard();
 
     }
@@ -117,9 +125,15 @@ class scene extends Phaser.Scene {
 
 
 
-    update() {
+    update()
+    {
+
+
         this.player.move();
         this.brick.wallcollant();
+        this.brick.flou();
+
+
         //console.log( this.pointCamera.body.x)
         //this.pointCamera.body.x = this.player.player.body.x
 

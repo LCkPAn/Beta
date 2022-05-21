@@ -4,13 +4,9 @@ class Player {
     constructor(scene) {
         this.scene = scene
 
-        this.player = this.scene.physics.add.sprite(6000, 650, 'player');
-
         this.player = this.scene.physics.add.sprite(100, 650, 'player');
 
-        this.player.setCollideWorldBounds(false);
         this.player.body.setSize(80, 130);
-        this.scene.physics.add.collider(this.player, this.scene.platforms);
         this.player.boule = false;
 
 
@@ -139,7 +135,6 @@ class Player {
             this.player.body.setSize(150,150);
             this.player.body.setMaxVelocityY(860);
             this.player.body.setMaxVelocityX(600);
-            this.player.setCollideWorldBounds(false);
             this.player.body.position.y = this.player.body.position.y - 30;
             this.player.boule = true;
 
@@ -150,7 +145,6 @@ class Player {
             this.player.visible=true;
             this.player.setBounce(0, 0);
             this.player.body.setSize(80, 130);
-            this.player.setCollideWorldBounds(false);
             this.player.boule = !this.player.boule;
         }
 
