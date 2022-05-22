@@ -4,7 +4,7 @@ class Player {
     constructor(scene) {
         this.scene = scene
 
-        this.player = this.scene.physics.add.sprite(100, 650, 'player');
+        this.player = this.scene.physics.add.sprite(28, 264, 'player');
 
         this.player.body.setSize(80, 130);
         this.player.boule = false;

@@ -48,16 +48,16 @@ class scene extends Phaser.Scene {
         this.foe = new foe(this);
 
 
-       /* this.pointCamera = this.physics.add.sprite(0,this.player.player.body.y);
-        this.cameras.main.setDeadzone(100,100);
+        this.pointCamera = this.physics.add.sprite(1000, 0);
+
+        this.cameras.main.startFollow(this.pointCamera, true,1,1,0, 150);
         this.pointCamera.body.setAllowGravity(false);
-        this.pointCamera.setImmovable(true);*/
+        this.pointCamera.setImmovable(true);
 
         // Camera
 
 
-        this.cameras.main.startFollow(this.player.player, true,1,1,0, 300);
-        this.cameras.main.setDeadzone(100,50);
+        //this.cameras.main.startFollow(this.player.player, true,1,1,0, 300);
 
         //this.pointCamera = this.physics.add.sprite(0,700);
         //this.cameras.main.setDeadzone(100,100);
@@ -126,8 +126,15 @@ class scene extends Phaser.Scene {
 
     update()
     {
-
-
+        if(this.player.player.body.y<this.pointCamera.body.y-300)
+        {
+            this.pointCamera.body.y = this.player.player.body.y+300
+        }
+        else if(this.player.player.body.y>this.pointCamera.body.y+50)
+        {
+            this.pointCamera.body.y = this.player.player.body.y-50
+        }
+        this.pointCamera.body.x = this.player.player.body.x;
         this.player.move();
         this.brick.wallcollant();
         this.brick.flou();
