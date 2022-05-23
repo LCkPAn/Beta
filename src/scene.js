@@ -44,15 +44,16 @@ class scene extends Phaser.Scene {
 
         // Camera
 
-        this.pointCamera = this.physics.add.sprite(0,this.player.player.body.y);
+       /* this.pointCamera = this.physics.add.sprite(0,this.player.player.body.y);
         this.cameras.main.setDeadzone(100,100);
         this.pointCamera.body.setAllowGravity(false);
         this.pointCamera.setImmovable(true);
 
 
 
-        this.cameras.main.startFollow(this.pointCamera, true,1,1,0, 300);
+        this.cameras.main.startFollow(this.pointCamera, true,1,1,0, 300);*/
 
+        this.cameras.main.startFollow(this.player.player, true,1,1,0, 300);
         this.cameras.main.zoomTo(0.75);
 
         this.cameras.main.setRoundPixels(true);
@@ -110,6 +111,7 @@ class scene extends Phaser.Scene {
     update() {
         this.player.move();
         this.brick.wallcollant();
+        /*
         console.log( this.pointCamera.body.x)
         this.pointCamera.body.x = this.player.player.body.x
 
