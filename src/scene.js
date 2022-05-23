@@ -48,60 +48,17 @@ class scene extends Phaser.Scene {
         this.foe = new foe(this);
 
 
-<<<<<<< HEAD
-       /* this.pointCamera = this.physics.add.sprite(0,this.player.player.body.y);
-        this.cameras.main.setDeadzone(100,100);
-=======
-        this.pointCamera = this.physics.add.sprite(1000, 0);
 
-        this.cameras.main.startFollow(this.pointCamera, true,1,1,0, 150);
->>>>>>> 9a0d6f708b01b99998637fdf6e85be125e7b8e17
-        this.pointCamera.body.setAllowGravity(false);
-        this.pointCamera.setImmovable(true);
+
 
         // Camera
-
-
-        //this.cameras.main.startFollow(this.player.player, true,1,1,0, 300);
-
-        //this.pointCamera = this.physics.add.sprite(0,700);
-        //this.cameras.main.setDeadzone(100,100);
-        //this.pointCamera.body.setAllowGravity(false);
-        //this.pointCamera.setImmovable(true);
-
-
-
-<<<<<<< HEAD
-        this.cameras.main.startFollow(this.pointCamera, true,1,1,0, 300);*/
-
-        this.cameras.main.startFollow(this.player.player, true,1,1,0, 300);
-        this.cameras.main.zoomTo(0.75);
-=======
-        //this.cameras.main.startFollow(this.pointCamera, true,1,1,0, 300);
-
+        this.pointCamera = this.physics.add.sprite(0, 0);
+        this.cameras.main.startFollow(this.pointCamera, true,1,1,0, 150);
+        this.pointCamera.body.setAllowGravity(false);
+        this.pointCamera.setImmovable(true);
         this.cameras.main.zoomTo(0.80);
->>>>>>> 9a0d6f708b01b99998637fdf6e85be125e7b8e17
-
         this.cameras.main.setRoundPixels(true);
-        /*game.camera.follow(player.player, Phaser.camera.FOLLOW_LOCKON, 0.1, 0.1);*/
-        /*this.cameras.main.centerOn(640,360);*/
 
-        /*this.cameras.main.setDeadzone(100,100);
-
-
-
-        this.moveCam = false;
-
-        this.input.on('pointerdown', function () {
-            this.moveCam = (this.moveCam) ? false: true;
-        }, this);
-
-        if (this.cameras.main.deadzone)
-        {
-            const graphics = this.add.graphics().setScrollFactor(0);
-            graphics.lineStyle(2, 0x00ff00, 1);
-            graphics.strokeRect(100, 100, this.cameras.main.deadzone.width, this.cameras.main.deadzone.height);
-        }*/
 
 
 
@@ -149,60 +106,6 @@ class scene extends Phaser.Scene {
         this.pointCamera.body.x = this.player.player.body.x;
         this.player.move();
         this.brick.wallcollant();
-<<<<<<< HEAD
-        /*
-        console.log( this.pointCamera.body.x)
-        this.pointCamera.body.x = this.player.player.body.x
-=======
-        this.brick.flou();
-
-
-        //console.log( this.pointCamera.body.x)
-        //this.pointCamera.body.x = this.player.player.body.x
->>>>>>> 9a0d6f708b01b99998637fdf6e85be125e7b8e17
-
-
-
-        /*if(this.player.player.body.blocked.down===true){
-            this.cameras.main.startFollow(this.player.player, true,1,1,0, 300);
-        }else{
-            this.cameras.main.stopFollow(this.player.player)
-        }*/
-
-        /*switch (true) {
-            case (this.cursors.space.isDown || this.cursors.up.isDown) && this.player.player.body.onFloor():
-                this.player.jump()
-                console.log("oui")
-                break;
-            case this.cursors.left.isDown:
-                this.player.moveLeft()
-                break;
-            case this.cursors.right.isDown:
-                this.player.moveRight();
-                break;
-            case this.cursors.down.isDown:
-                if(!this.flag){
-
-                }
-                else{
-                    this.player.transform()
-                    this.flag=false
-
-                }
-                break;
-            default:
-                this.player.stop();
-
-        }
-
-        if(!this.cursors.down.isDown)
-        {
-            this.flag=true
-        }*/
-
-
-
-
 
     }
 }
