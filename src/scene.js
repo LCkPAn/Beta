@@ -6,10 +6,10 @@ class scene extends Phaser.Scene {
         // At last image must be loaded with its JSON
 
        /* this.load.atlas('player', 'assets/images/kenney_player.png', 'assets/images/kenney_player_atlas.json');*/
-        this.load.image('tiles', 'assets/tilesets/platformPack_tilesheet.png');
         this.load.image('player', 'assets/images/child.png');
         this.load.atlas('robot', 'assets/images/kenney_player.png', 'assets/images/kenney_player_atlas.json');
         this.load.image('tiles', 'assets/tilesets/platformPack_tilesheet.png');
+        this.load.image('tilaqua', 'assets/tilesets/tilesaqua.png');
         this.load.image('player', 'assets/images/child.png');
         this.load.image('boule', 'assets/images/boule.png');
         this.load.image('move', 'assets/images/ech.png');
@@ -28,11 +28,16 @@ class scene extends Phaser.Scene {
     create() {
 
         //Tilled créer la base
-        const backgroundImage = this.add.image(0, 0, 'background').setOrigin(0, 0);
-        backgroundImage.setScale(2, 0.8);
+        const backgroundImage = this.add.image(-2000, -3000, 'background').setOrigin(0, 0);
         const map = this.make.tilemap({key: 'map'});
         const tileset = map.addTilesetImage('Alpha_test1', 'tiles');
-        this.platforms = map.createLayer('Sol', tileset);
+        const tilesetP1 = map.addTilesetImage('Tileaqua', 'tilaqua');
+
+        this.platforms = map.createLayer('Sol', tilesetP1);
+        this.tree = map.createLayer('Arbre', tilesetP1);
+        this.Plan1 = map.createLayer('Parallax', tilesetP1);
+        this.Plan2 = map.createLayer('Parallax1', tilesetP1);
+        this.fleur = map.createLayer('Fleur', tilesetP1);
 
 
         this.cursors = this.input.keyboard.createCursorKeys();
@@ -42,19 +47,40 @@ class scene extends Phaser.Scene {
         this.brick = new Brick(this,this.player);
         this.foe = new foe(this);
 
-        // Camera
 
+<<<<<<< HEAD
        /* this.pointCamera = this.physics.add.sprite(0,this.player.player.body.y);
         this.cameras.main.setDeadzone(100,100);
+=======
+        this.pointCamera = this.physics.add.sprite(1000, 0);
+
+        this.cameras.main.startFollow(this.pointCamera, true,1,1,0, 150);
+>>>>>>> 9a0d6f708b01b99998637fdf6e85be125e7b8e17
         this.pointCamera.body.setAllowGravity(false);
         this.pointCamera.setImmovable(true);
 
+        // Camera
 
 
+        //this.cameras.main.startFollow(this.player.player, true,1,1,0, 300);
+
+        //this.pointCamera = this.physics.add.sprite(0,700);
+        //this.cameras.main.setDeadzone(100,100);
+        //this.pointCamera.body.setAllowGravity(false);
+        //this.pointCamera.setImmovable(true);
+
+
+
+<<<<<<< HEAD
         this.cameras.main.startFollow(this.pointCamera, true,1,1,0, 300);*/
 
         this.cameras.main.startFollow(this.player.player, true,1,1,0, 300);
         this.cameras.main.zoomTo(0.75);
+=======
+        //this.cameras.main.startFollow(this.pointCamera, true,1,1,0, 300);
+
+        this.cameras.main.zoomTo(0.80);
+>>>>>>> 9a0d6f708b01b99998637fdf6e85be125e7b8e17
 
         this.cameras.main.setRoundPixels(true);
         /*game.camera.follow(player.player, Phaser.camera.FOLLOW_LOCKON, 0.1, 0.1);*/
@@ -100,6 +126,8 @@ class scene extends Phaser.Scene {
         });
         this.physics.add.collider(this.player.player, this.collide);
 
+
+
         this.player.initKeyboard();
 
     }
@@ -108,12 +136,30 @@ class scene extends Phaser.Scene {
 
 
 
-    update() {
+    update()
+    {
+        if(this.player.player.body.y<this.pointCamera.body.y-300)
+        {
+            this.pointCamera.body.y = this.player.player.body.y+300
+        }
+        else if(this.player.player.body.y>this.pointCamera.body.y+50)
+        {
+            this.pointCamera.body.y = this.player.player.body.y-50
+        }
+        this.pointCamera.body.x = this.player.player.body.x;
         this.player.move();
         this.brick.wallcollant();
+<<<<<<< HEAD
         /*
         console.log( this.pointCamera.body.x)
         this.pointCamera.body.x = this.player.player.body.x
+=======
+        this.brick.flou();
+
+
+        //console.log( this.pointCamera.body.x)
+        //this.pointCamera.body.x = this.player.player.body.x
+>>>>>>> 9a0d6f708b01b99998637fdf6e85be125e7b8e17
 
 
 
