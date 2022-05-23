@@ -46,6 +46,7 @@ class scene extends Phaser.Scene {
         this.player = new Player(this);
         this.brick = new Brick(this,this.player);
         this.foe = new foe(this);
+        this.sauvegarde = new Sauvegarde(this,this.player)
 
 
 
@@ -53,6 +54,7 @@ class scene extends Phaser.Scene {
 
         // Camera
         this.pointCamera = this.physics.add.sprite(0, 0);
+        this.pointCamera.body.x = this.player.player.body.x;
         this.cameras.main.startFollow(this.pointCamera, true,1,1,0, 150);
         this.pointCamera.body.setAllowGravity(false);
         this.pointCamera.setImmovable(true);
@@ -68,9 +70,15 @@ class scene extends Phaser.Scene {
             immovable: true,
         })
         map.getObjectLayer('Spikes').objects.forEach((spikes) => {
-            const spikeSprite = this.spikes.create(spikes.x, spikes.y, 'spikes').setOrigin(0);
-            spikeSprite.body.setSize(spikes.width, spikes.height).setOffset(0, 20);
+            const spikesSprite = this.add.rectangle(spikes.x,spikes.y,spikes.width,spikes.height).setOrigin(0,0)
+            this.spikes.add(spikesSprite)
         })
+        this.physics.add.collider(this.player.player, this.spikes, playerHit, null, this);
+
+        function playerHit(player, spike) {
+           this.sauvegarde.death()
+        }
+
 
         // Collide
         this.collide = this.physics.add.group({
@@ -78,10 +86,15 @@ class scene extends Phaser.Scene {
             immovable: true,
         });
         map.getObjectLayer('Collide').objects.forEach((col) => {
-            this.collideSprite = this.collide.create(col.x, col.y, col.height).setOrigin(0).setDisplaySize(col.width,col.height).visible=false;
+            const collideSprite = this.add.rectangle(col.x,col.y,col.width,col.height).setOrigin(0,0)
+            this.collide.add(collideSprite)
+
 
         });
         this.physics.add.collider(this.player.player, this.collide);
+
+
+        // vie
 
 
 
@@ -95,6 +108,7 @@ class scene extends Phaser.Scene {
 
     update()
     {
+        this.pointCamera.body.x = this.player.player.body.x;
         if(this.player.player.body.y<this.pointCamera.body.y-300)
         {
             this.pointCamera.body.y = this.player.player.body.y+300
@@ -103,7 +117,6 @@ class scene extends Phaser.Scene {
         {
             this.pointCamera.body.y = this.player.player.body.y-50
         }
-        this.pointCamera.body.x = this.player.player.body.x;
         this.player.move();
         this.brick.wallcollant();
 
