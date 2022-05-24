@@ -1,14 +1,12 @@
 class scene extends Phaser.Scene {
 
     preload() {
-        this.load.image('background', 'assets/images/background.png');
+
         this.load.image('spike', 'assets/images/spike.png');
         // At last image must be loaded with its JSON
 
        /* this.load.atlas('player', 'assets/images/kenney_player.png', 'assets/images/kenney_player_atlas.json');*/
         this.load.image('player', 'assets/images/child.png');
-        this.load.atlas('robot', 'assets/images/kenney_player.png', 'assets/images/kenney_player_atlas.json');
-        this.load.image('tiles', 'assets/tilesets/platformPack_tilesheet.png');
         this.load.image('tilaqua', 'assets/tilesets/tilesaqua.png');
         this.load.image('player', 'assets/images/child.png');
         this.load.image('boule', 'assets/images/boule.png');
@@ -28,16 +26,13 @@ class scene extends Phaser.Scene {
     create() {
 
         //Tilled créer la base
-        const backgroundImage = this.add.image(-2000, -3000, 'background').setOrigin(0, 0);
+
         const map = this.make.tilemap({key: 'map'});
-        const tileset = map.addTilesetImage('Alpha_test1', 'tiles');
         const tilesetP1 = map.addTilesetImage('Tileaqua', 'tilaqua');
 
-        this.platforms = map.createLayer('Sol', tilesetP1);
-        this.tree = map.createLayer('Arbre', tilesetP1);
-        this.Plan1 = map.createLayer('Parallax', tilesetP1);
-        this.Plan2 = map.createLayer('Parallax1', tilesetP1);
-        this.fleur = map.createLayer('Fleur', tilesetP1);
+        this.sole = map.createLayer('Sol', tilesetP1);
+        this.tray = map.createLayer('traits', tilesetP1);
+        this.paralla = map.createLayer('Parallax1', tilesetP1);
 
 
         this.cursors = this.input.keyboard.createCursorKeys();
