@@ -6,8 +6,23 @@ class Player {
         this.player = this.scene.physics.add.sprite(600,100,'player');
         this.player.body.setSize(80, 130);
         this.player.boule = false;
+        //this.animation();
     }
 
+
+/*animation()
+{
+
+    this.scene.anims.create
+    (
+        {
+        key: 'walk', frameRate: 14,
+        frames: this.scene.anims.generateFrameNames('walk', {start: 0, end: 7}),
+        repeat: -1,
+        }
+    )
+
+}*/
 
 
 
@@ -68,29 +83,36 @@ class Player {
 
     }
 
-    moveRight() {
+    moveRight()
+    {
         this.player.setVelocityX(400);
         this.player.setFlipX(false);
     }
 
-    moveLeft() {
+    moveLeft()
+    {
         this.player.setVelocityX(-400);
         this.player.setFlipX(true);
     }
-    moveBack(){
+    moveBack()
+    {
         this.player.setVelocityY(400);
     }
 
-    stop() {
+    stop()
+    {
         this.player.setVelocityX(0);
     }
 
-    move(){
-        if (this.zDown){
+    move()
+    {
+        if (this.zDown)
+        {
             this.jump();
             this.flag1=true;
         }
-        switch (true) {
+        switch (true)
+        {
             case this.qDown:
                 this.moveLeft()
                 break;
@@ -101,13 +123,11 @@ class Player {
                 this.moveBack()
                 break;
             case this.spaceDown:
-                if(!this.flag){
-
-                }
-                else{
+                if(!this.flag){}
+                else
+                {
                     this.transform()
                     this.flag=false
-
                 }
                 break;
             case this.player.body.onFloor():

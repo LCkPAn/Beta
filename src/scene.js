@@ -2,19 +2,22 @@ class scene extends Phaser.Scene {
 
     preload() {
 
-        this.load.image('spike', 'assets/images/spike.png');
-        // At last image must be loaded with its JSON
 
-       /* this.load.atlas('player', 'assets/images/kenney_player.png', 'assets/images/kenney_player_atlas.json');*/
+        // At last image must be loaded with its JSON
+        //this.load.spritesheet('walk', 'assets/animation/walk.png', {});
+
+
         this.load.image('player', 'assets/images/child.png');
         this.load.image('tilaqua', 'assets/tilesets/tilesaqua.png');
         this.load.image('player', 'assets/images/child.png');
         this.load.image('boule', 'assets/images/boule.png');
+        this.load.image('spike', 'assets/images/spike.png');
         this.load.image('move', 'assets/images/ech.png');
         this.load.image('col', 'assets/images/hce.png');
         this.load.image('foe', 'assets/images/foe.png');
         this.load.image('spike', 'assets/images/spike.png');
         this.load.image('spikes', 'assets/images/ekips.png');
+
         // Load the export Tiled JSON
         this.load.tilemapTiledJSON('map', 'assets/tilemaps/Alpha1.json');
 
@@ -33,7 +36,7 @@ class scene extends Phaser.Scene {
         this.sole = map.createLayer('Sol', tilesetP1);
         this.tray = map.createLayer('traits', tilesetP1);
         this.paralla = map.createLayer('Parallax1', tilesetP1);
-
+        this.paralla1 = map.createLayer('Devant', tilesetP1);
 
         this.cursors = this.input.keyboard.createCursorKeys();
 
