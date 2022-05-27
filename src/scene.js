@@ -17,6 +17,7 @@ class scene extends Phaser.Scene {
         this.load.image('foe', 'assets/images/foe.png');
         this.load.image('spike', 'assets/images/spike.png');
         this.load.image('spikes', 'assets/images/ekips.png');
+        this.load.image('background', 'assets/images/background.png');
 
         // Load the export Tiled JSON
         this.load.tilemapTiledJSON('map', 'assets/tilemaps/Alpha1.json');
@@ -29,7 +30,8 @@ class scene extends Phaser.Scene {
     create() {
 
         //Tilled créer la base
-
+        this.backgroundImage = this.add.image(-400, -150, 'background').setOrigin(0, 0);
+        this.backgroundImage.setScale(3, 2);
         const map = this.make.tilemap({key: 'map'});
         const tilesetP1 = map.addTilesetImage('Tileaqua', 'tilaqua');
 
@@ -44,7 +46,12 @@ class scene extends Phaser.Scene {
         this.player = new Player(this);
         this.brick = new Brick(this,this.player);
         this.foe = new foe(this);
-        this.sauvegarde = new Sauvegarde(this,this.player)
+        this.sauvegarde = new Sauvegarde(this,this.player);
+
+
+        // Parallax
+        this.backgroundImage.scrollFactorX=0;
+        this.backgroundImage.scrollFactorY=0;
 
 
 
