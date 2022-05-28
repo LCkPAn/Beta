@@ -4,26 +4,26 @@ class Player {
     constructor(scene) {
         this.scene = scene
         this.player = this.scene.physics.add.sprite(600,100,'player');
-        this.player.body.setSize(80, 130);
+        this.player.body.setSize(200, 286);
         this.player.boule = false;
-        //this.animation();
+        this.animation();
+
+
     }
 
-
-/*animation()
+animation()
 {
+    this.scene.anims.create({
+        key: 'walkplayer',
+        frames: this.scene.anims.generateFrameNumbers('walk', {
+            start: 0,
+            end: 13,
+}),
+frameRate: 12,
+    repeat: 0,
+});
 
-    this.scene.anims.create
-    (
-        {
-        key: 'walk', frameRate: 14,
-        frames: this.scene.anims.generateFrameNames('walk', {start: 0, end: 7}),
-        repeat: -1,
-        }
-    )
-
-}*/
-
+}
 
 
     initKeyboard() {
@@ -87,12 +87,14 @@ class Player {
     {
         this.player.setVelocityX(400);
         this.player.setFlipX(false);
+        this.player.play('walkplayer', true)
     }
 
     moveLeft()
     {
         this.player.setVelocityX(-400);
         this.player.setFlipX(true);
+        this.player.play('walkplayer', true)
     }
     moveBack()
     {

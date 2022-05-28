@@ -4,7 +4,7 @@ class scene extends Phaser.Scene {
 
 
         // At last image must be loaded with its JSON
-        //this.load.spritesheet('walk', 'assets/animation/walk.png', {});
+        this.load.spritesheet('walk','assets/animation/walk.png',{frameWidth: 110, frameHeight: 206});
 
 
         this.load.image('player', 'assets/images/child.png');
@@ -56,7 +56,7 @@ class scene extends Phaser.Scene {
         this.cameras.main.startFollow(this.pointCamera, true,1,1,0, 150);
         this.pointCamera.body.setAllowGravity(false);
         this.pointCamera.setImmovable(true);
-        this.cameras.main.zoomTo(0.80);
+        this.cameras.main.zoomTo(0.70);
         this.cameras.main.setRoundPixels(true);
 
 
@@ -107,13 +107,13 @@ class scene extends Phaser.Scene {
     update()
     {
         this.pointCamera.body.x = this.player.player.body.x;
-        if(this.player.player.body.y<this.pointCamera.body.y-300)
+        if(this.player.player.body.y<this.pointCamera.body.y-200)
         {
-            this.pointCamera.body.y = this.player.player.body.y+300
+            this.pointCamera.body.y = this.player.player.body.y+200
         }
-        else if(this.player.player.body.y>this.pointCamera.body.y+50)
+        else if(this.player.player.body.y>this.pointCamera.body.y+100)
         {
-            this.pointCamera.body.y = this.player.player.body.y-50
+            this.pointCamera.body.y = this.player.player.body.y-100
         }
         this.player.move();
         this.brick.wallcollant();
