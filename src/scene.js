@@ -9,7 +9,9 @@ class scene extends Phaser.Scene {
 
         this.load.image('player', 'assets/images/child.png');
         this.load.image('tilaqua', 'assets/tilesets/tilesaqua.png');
-        this.load.image('tilelvl', 'assets/tilesets/tilesol.png');
+        this.load.image('tilelvl1', 'assets/tilesets/tilesol.png');
+        this.load.image('tilelvl2', 'assets/tilesets/tilesol2.png');
+        this.load.image('tilelvl3', 'assets/tilesets/tilesol3.png');
         this.load.image('player', 'assets/images/child.png');
         this.load.image('boule', 'assets/images/boule.png');
         this.load.image('spike', 'assets/images/spike.png');
@@ -37,9 +39,13 @@ class scene extends Phaser.Scene {
         this.add.image(-500,-150, 'water').setAlpha(0.1);
         const map = this.make.tilemap({key: 'map'});
         const tilesetP1 = map.addTilesetImage('Tileaqua', 'tilaqua');
-        const tilesetP2 = map.addTilesetImage('tilesol', 'tilelvl');
+        const tilesetP2 = map.addTilesetImage('tilesol', 'tilelvl1');
+        const tilesetP3 = map.addTilesetImage('tilesol2', 'tilelvl2');
+        const tilesetP4 = map.addTilesetImage('tilesol3', 'tilelvl3');
 
         this.sole = map.createLayer('Sol', tilesetP2);
+        this.solee = map.createLayer('Sol2', tilesetP3);
+        this.soleee = map.createLayer('Sol3', tilesetP4);
         this.tray = map.createLayer('traits', tilesetP1);
 
         this.cursors = this.input.keyboard.createCursorKeys();
@@ -47,7 +53,7 @@ class scene extends Phaser.Scene {
 
         this.player = new Player(this);
         this.brick = new Brick(this,this.player);
-        this.foe = new foe(this);
+        this.foe = new foe(this, this.player, this.save);
         this.sauvegarde = new Sauvegarde(this,this.player);
 
 
@@ -61,8 +67,7 @@ class scene extends Phaser.Scene {
 
         // Camera
         this.pointCamera = this.physics.add.sprite(0, 0);
-        this.pointCamera.body.x = this.player.player.body.x;
-        this.cameras.main.startFollow(this.pointCamera, true,1,1,0, 150);
+        this.cameras.main.startFollow(this.pointCamera, true,1,1,0, 200);
         this.pointCamera.body.setAllowGravity(false);
         this.pointCamera.setImmovable(true);
         this.cameras.main.zoomTo(0.80);
@@ -99,6 +104,8 @@ class scene extends Phaser.Scene {
 
         });
         this.physics.add.collider(this.player.player, this.collide);
+        this.physics.add.collider(this.collide, this.foe.ennemy)
+
 
 
         // vie
@@ -116,16 +123,36 @@ class scene extends Phaser.Scene {
     update()
     {
         this.pointCamera.body.x = this.player.player.body.x;
-        if(this.player.player.body.y<this.pointCamera.body.y-200)
+        this.pointCamera.body.y = this.player.player.body.y;
+        console.log(this.player.player.body.velocity.y)
+        let offset=100;
+        switch(true)
         {
-            this.pointCamera.body.y = this.player.player.body.y+200
+            case this.player.player.body.velocity.y<0:
+            offset=200;
+            break;
+            case this.player.player.body.velocity.y>0:
+            offset=-200;
+            break;
+
+            default:
+            offset=100
+            break;
+
         }
-        else if(this.player.player.body.y>this.pointCamera.body.y+100)
-        {
-            this.pointCamera.body.y = this.player.player.body.y-100
+
+
+        function lerp (start, end, amt=0.1){
+            return (1-amt)*start+amt*end
         }
+
+
+
+
+        this.cameras.main.followOffset.y=lerp(this.cameras.main.followOffset.y,offset,  0.01)
         this.player.move();
         this.brick.wallcollant();
+        this.foe.IaGesttion();
 
     }
 }

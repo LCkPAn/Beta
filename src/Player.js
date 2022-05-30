@@ -3,8 +3,12 @@ class Player {
 
     constructor(scene) {
         this.scene = scene
-        this.player = this.scene.physics.add.sprite(650,250,'player');
-        this.player.body.setSize(80, 130);
+        /**
+         *
+         * @type {Phaser.Types.Physics.Arcade.SpriteWithDynamicBody}
+         */
+        this.player = this.scene.physics.add.sprite(150,250,'player');
+        this.player.body.setSize(87, 130);
         this.player.boule = false;
 
 
@@ -147,6 +151,7 @@ frameRate: 12,
     transform() {
         if (!this.player.boule)
         {
+
             this.player.visible=false;
             this.player.setBounce(1.4, 2);
             this.player.body.setSize(150,150);
