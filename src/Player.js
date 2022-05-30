@@ -3,15 +3,14 @@ class Player {
 
     constructor(scene) {
         this.scene = scene
-        this.player = this.scene.physics.add.sprite(600,100,'player');
-        this.player.body.setSize(200, 286);
+        this.player = this.scene.physics.add.sprite(650,250,'player');
+        this.player.body.setSize(80, 130);
         this.player.boule = false;
-        this.animation();
 
 
     }
 
-animation()
+/*animation()
 {
     this.scene.anims.create({
         key: 'walkplayer',
@@ -23,7 +22,7 @@ frameRate: 12,
     repeat: 0,
 });
 
-}
+}*/
 
 
     initKeyboard() {

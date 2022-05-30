@@ -9,6 +9,7 @@ class scene extends Phaser.Scene {
 
         this.load.image('player', 'assets/images/child.png');
         this.load.image('tilaqua', 'assets/tilesets/tilesaqua.png');
+        this.load.image('tilelvl', 'assets/tilesets/tilesol.png');
         this.load.image('player', 'assets/images/child.png');
         this.load.image('boule', 'assets/images/boule.png');
         this.load.image('spike', 'assets/images/spike.png');
@@ -18,6 +19,7 @@ class scene extends Phaser.Scene {
         this.load.image('spike', 'assets/images/spike.png');
         this.load.image('spikes', 'assets/images/ekips.png');
         this.load.image('background', 'assets/images/background.png');
+        this.load.image ('water', 'assets/images/watercolor.png');
 
         // Load the export Tiled JSON
         this.load.tilemapTiledJSON('map', 'assets/tilemaps/Alpha1.json');
@@ -30,15 +32,15 @@ class scene extends Phaser.Scene {
     create() {
 
         //Tilled créer la base
-        this.backgroundImage = this.add.image(-400, -150, 'background').setOrigin(0, 0);
-        this.backgroundImage.setScale(3, 2);
+        this.backgroundImage = this.add.image(-190, -200, 'background').setOrigin(0, 0);
+        this.backgroundImage.setScale(1.5,1.5);
+        this.add.image(-500,-150, 'water').setAlpha(0.1);
         const map = this.make.tilemap({key: 'map'});
         const tilesetP1 = map.addTilesetImage('Tileaqua', 'tilaqua');
+        const tilesetP2 = map.addTilesetImage('tilesol', 'tilelvl');
 
-        this.sole = map.createLayer('Sol', tilesetP1);
+        this.sole = map.createLayer('Sol', tilesetP2);
         this.tray = map.createLayer('traits', tilesetP1);
-        this.paralla = map.createLayer('Parallax1', tilesetP1);
-        this.paralla1 = map.createLayer('Devant', tilesetP1);
 
         this.cursors = this.input.keyboard.createCursorKeys();
 
@@ -63,7 +65,7 @@ class scene extends Phaser.Scene {
         this.cameras.main.startFollow(this.pointCamera, true,1,1,0, 150);
         this.pointCamera.body.setAllowGravity(false);
         this.pointCamera.setImmovable(true);
-        this.cameras.main.zoomTo(0.70);
+        this.cameras.main.zoomTo(0.80);
         this.cameras.main.setRoundPixels(true);
 
 
