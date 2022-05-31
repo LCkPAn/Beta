@@ -11,6 +11,7 @@ class foe{
         this.ennemyPositionY = []
 
 
+
         this.ennemy = this.scene.physics.add.group({
             allowGravity: false,
             immovable: true
@@ -26,20 +27,11 @@ class foe{
             //this.ennemy.getChildren()[i].anims.play('ennemyIdle');
             this.ennemy.getChildren()[i].body.setSize(150,150);
             this.ennemy.getChildren()[i].flagExclamation = true;
-        }
-
-    }
-
-    IaGesttion(){
-
-
-        let me = this;
-
-
-        for(var i = 0; i < this.ennemy.getChildren().length; i++) {
-            let tween = this.scene.tweens.add({
+            this.ennemy.getChildren()[i].flagTween=true;
+            this.ennemy.getChildren()[i].tween = this.scene.tweens.add({
                 targets: this.ennemy.getChildren()[i],
-                x: 944,
+                x:  this.ennemy.getChildren()[i].x + 300,
+                y:  this.ennemy.getChildren()[i].y,
                 ease: 'linear',
                 duration: 3000,
                 flipX: true,
@@ -47,22 +39,18 @@ class foe{
                 repeat: -1,
 
             });
-            tween.play()
+        }
 
+    }
+
+    IaGesttion(){
+
+        let me = this;
+        for(var i = 0; i < this.ennemy.getChildren().length; i++) {
             this.dist = Phaser.Math.Distance.BetweenPoints(this.player.player, this.ennemy.getChildren()[i]);
-
-            if (this.dist <= 500 && !this.ennemy.getChildren()[i].tuchEnnemy) {
-                tween.pause()
-                if (this.ennemy.getChildren()[i].flagExclamation){
-                    this.exclamation = this.scene.add.sprite(this.ennemy.getChildren()[i].x + 40, this.ennemy.getChildren()[i].y, 'exclamation')
-                        .setScale(0.5)
-                    this.ennemy.getChildren()[i].flagExclamation = false;
-                    setTimeout(function(){
-                        me.exclamation.destroy();
-                    },1000)
-                }
-                this.exclamation.x = this.ennemy.getChildren()[i].x +40
-                this.exclamation.y = this.ennemy.getChildren()[i].y -10
+            if (this.dist <= 300 && !this.ennemy.getChildren()[i].tuchEnnemy) {
+                this.ennemy.getChildren()[i].flagTween=false;
+                this.ennemy.getChildren()[i].tween.pause()
                 this.scene.physics.moveTo(
                     me.ennemy.getChildren()[i],
                     me.player.player.body.x,
@@ -70,34 +58,35 @@ class foe{
                     210);
 
             } else {
-                console.log("twen")
-                this.ennemy.getChildren()[i].setVelocity(0);
-                tween.resume()
+                if(this.ennemy.getChildren()[i].flagTween){
 
+                } else {
+                    this.ennemy.getChildren()[i].tween.play()
+                    console.log("tween")
+                    this.ennemy.getChildren()[i].flagTween=true;
 
-
+                }
             }
         }
-        this.tuchEnnemyDeath = false;
     }
 
     Tuch(){
         this.scene.physics.add.overlap(this.player.player, this.ennemy, this.isTuching.bind(this))
     }
 
-    /*isTuching(player, ennemy){
-        if (this.player.isDashing){
+    isTuching(player, ennemy){
+        if (player.boule){
             ennemy.tuchEnnemy = true;
             ennemy.anims.play('ennemyDeath')
             setTimeout(function(){
                 ennemy.visible = false;
 
-
             },500);
+
 
         } else if (!ennemy.tuchEnnemy){
             this.scene.sauvegarde.death();
         }
-    }*/
+    }
 
 }
