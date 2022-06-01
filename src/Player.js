@@ -7,26 +7,37 @@ class Player {
          *
          * @type {Phaser.Types.Physics.Arcade.SpriteWithDynamicBody}
          */
-        this.player = this.scene.physics.add.sprite(150,250,'player');
+        this.player = this.scene.physics.add.sprite(3150,250,'player');
         this.player.body.setSize(87, 130);
         this.player.boule = false;
+        this.animation();
 
 
     }
 
-/*animation()
+animation()
 {
     this.scene.anims.create({
         key: 'walkplayer',
         frames: this.scene.anims.generateFrameNumbers('walk', {
             start: 0,
-            end: 13,
+            end: 7,
 }),
 frameRate: 12,
     repeat: 0,
 });
 
-}*/
+    this.scene.anims.create({
+        key: 'jumpplayer',
+        frames: this.scene.anims.generateFrameNumbers('jump', {
+            start: 0,
+            end: 6,
+        }),
+        frameRate: 12,
+        repeat: 0,
+    });
+
+}
 
 
     initKeyboard() {
@@ -80,6 +91,7 @@ frameRate: 12,
             this.flag1=false
             if (this.player.body.onFloor()){
                 this.player.setVelocityY(-500);
+                this.player.play('jumpplayer', true)
                 console.log('jump');
             }
         }
