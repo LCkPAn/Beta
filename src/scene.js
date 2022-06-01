@@ -4,7 +4,7 @@ class scene extends Phaser.Scene {
 
 
         // At last image must be loaded with its JSON
-        this.load.spritesheet('walk','assets/animation/walk.png',{frameWidth: 103, frameHeight: 133});
+        this.load.spritesheet('walk','assets/animation/walk.png',{frameWidth: 160, frameHeight: 172});
         this.load.spritesheet('jump','assets/animation/jump.png',{frameWidth: 131, frameHeight: 145});
 
 

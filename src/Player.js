@@ -8,7 +8,7 @@ class Player {
          * @type {Phaser.Types.Physics.Arcade.SpriteWithDynamicBody}
          */
         this.player = this.scene.physics.add.sprite(3150,250,'player');
-        this.player.body.setSize(87, 130);
+        this.player.body.setSize(100, 130);
         this.player.boule = false;
         this.animation();
 
