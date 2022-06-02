@@ -50,8 +50,8 @@ class scene extends Phaser.Scene {
 
         this.paralaa = map.createLayer('Parallax2', tilesetP1);
         this.paralaaa = map.createLayer('Parallaxdeux', tilesetP5);
-        this.tree= map.createLayer('Arbre', tilesetP1);
-
+        this.tree = map.createLayer('Arbre', tilesetP1);
+        this.alle = map.createLayer('special', tilesetP1);
         this.parala = map.createLayer('Parallax1', tilesetP5);
         this.sole = map.createLayer('Sol', tilesetP2);
         this.solee = map.createLayer('Sol2', tilesetP3);
@@ -162,7 +162,6 @@ class scene extends Phaser.Scene {
     {
         this.pointCamera.body.x = this.player.player.body.x;
         this.pointCamera.body.y = this.player.player.body.y;
-        console.log(this.player.player.body.velocity.y)
         let offset=100;
         switch(true)
         {
