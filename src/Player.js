@@ -3,14 +3,11 @@ class Player {
 
     constructor(scene) {
         this.scene = scene
-        /**
-         *
-         * @type {Phaser.Types.Physics.Arcade.SpriteWithDynamicBody}
-         */
-        this.player = this.scene.physics.add.sprite(3150,250,'player');
+        this.player = this.scene.physics.add.sprite(650, 150,'player');
         this.player.body.setSize(100, 130);
         this.player.boule = false;
         this.animation();
+        this.player.canJump=true
 
 
     }
@@ -35,6 +32,15 @@ frameRate: 12,
         }),
         frameRate: 12,
         repeat: 0,
+    });
+    this.scene.anims.create({
+        key: 'rebond',
+        frames: this.scene.anims.generateFrameNumbers('bonce', {
+            start: 0,
+            end: 11,
+        }),
+        frameRate: 12,
+        repeat: -1,
     });
 
 }
@@ -163,10 +169,14 @@ frameRate: 12,
     transform() {
         if (!this.player.boule)
         {
+            if(this.player.body.onFloor())
+            {
+                this.player.play('rebond', true)
+            }
 
-            this.player.visible=false;
+            this.player.setTexture('ball')
             this.player.setBounce(1.4, 2);
-            this.player.body.setSize(150,150);
+            this.player.body.setSize(150,126);
             this.player.body.setMaxVelocityY(860);
             this.player.body.setMaxVelocityX(600);
             this.player.body.position.y = this.player.body.position.y - 30;
