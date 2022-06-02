@@ -36,11 +36,11 @@ frameRate: 12,
     this.scene.anims.create({
         key: 'rebond',
         frames: this.scene.anims.generateFrameNumbers('bonce', {
-            start: 0,
-            end: 11,
+            start: 2,
+            end: 9,
         }),
         frameRate: 12,
-        repeat: -1,
+        repeat: 0,
     });
 
 }
@@ -129,6 +129,11 @@ frameRate: 12,
 
     move()
     {
+        if(this.player.body.onFloor() && this.player.boule)
+        {
+            this.player.play('rebond')
+            console.log('fd')
+        }
         if (this.zDown)
         {
             this.jump();
@@ -169,10 +174,7 @@ frameRate: 12,
     transform() {
         if (!this.player.boule)
         {
-            if(this.player.body.onFloor())
-            {
-                this.player.play('rebond', true)
-            }
+
 
             this.player.setTexture('ball')
             this.player.setBounce(1.4, 2);
@@ -185,6 +187,7 @@ frameRate: 12,
         }
         else
         {
+
             this.player.setTexture('player');
             this.player.visible=true;
             this.player.setBounce(0, 0);
