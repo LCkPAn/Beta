@@ -36,6 +36,7 @@ class scene extends Phaser.Scene {
         this.load.image ('waterb', 'assets/images/watercolore.png');
         this.load.image ('waterr', 'assets/images/watercolour.png');
         this.load.image('ball', 'assets/images/bouledecheuveux.png');
+        this.load.image('peluche', 'assets/images/doudou.png');
 
         // Load the export Tiled JSON
         this.load.tilemapTiledJSON('map', 'assets/tilemaps/Alpha1.json');
@@ -47,6 +48,8 @@ class scene extends Phaser.Scene {
 
     create() {
 
+        this.started = false;
+
         //Tilled créer la base
         this.backgroundImage = this.add.image(-190, -200, 'background').setOrigin(0, 0);
         this.backgroundImage.setScale(1.5,1.5);
@@ -56,6 +59,7 @@ class scene extends Phaser.Scene {
         this.add.image(8000,-200, 'water').setAlpha(0.3);
         this.add.image(11700,-600, 'waterb').setAlpha(0.3);
         this.add.image(21600,-1200, 'waterr').setAlpha(0.1);
+        this.add.image(23393, -2529, 'peluche')
 
 
         const map = this.make.tilemap({key: 'map'});
@@ -164,6 +168,18 @@ class scene extends Phaser.Scene {
         });
 
 
+        //END
+
+        this.End = this.physics.add.group({
+            allowGravity: false,
+            immovable: true
+        });
+        map.getObjectLayer('EndGame').objects.forEach((End) => {
+            this.EndSprite = this.End.create(End.x , End.y , 'end').setOrigin(0).setVisible(false);
+        });
+        this.physics.add.overlap(this.player.player, this.EndSprite, this.Credits, null, this)
+
+
 
 
         this.physics.add.overlap(this.player.player, this.endla,null,this);
@@ -171,13 +187,19 @@ class scene extends Phaser.Scene {
         this.physics.add.collider(this.player.player, this.collide);
         this.physics.add.collider(this.collide, this.foe.ennemy)
 
-
-
-        // vie
         this.player.initKeyboard();
 
     }
 
+    Credits(){
+        if (this.started){
+
+        } else {
+
+            this.scene.start('credits')
+            this.started = true ;
+        }
+    }
 
 
     update()
@@ -204,9 +226,6 @@ class scene extends Phaser.Scene {
         function lerp (start, end, amt=0.1){
             return (1-amt)*start+amt*end
         }
-
-
-
 
         this.cameras.main.followOffset.y=lerp(this.cameras.main.followOffset.y,offset,  0.01)
         this.player.move();

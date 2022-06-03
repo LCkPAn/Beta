@@ -3,7 +3,7 @@ class Player {
 
     constructor(scene) {
         this.scene = scene
-        this.player = this.scene.physics.add.sprite(25000, -3000,'player');
+        this.player = this.scene.physics.add.sprite(-1900, 300,'player');
         this.player.body.setSize(138, 173);
         this.player.boule = false;
         this.animation();
@@ -35,10 +35,10 @@ frameRate: 12,
     this.scene.anims.create({
         key: 'rebond',
         frames: this.scene.anims.generateFrameNumbers('bonce', {
-            start: 2,
+            start: 0,
             end: 9,
         }),
-        frameRate: 9,
+        frameRate: 20,
         repeat: 0,
     });
     this.scene.anims.create({
