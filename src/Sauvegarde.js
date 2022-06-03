@@ -43,7 +43,6 @@ class Sauvegarde {
     {
        this.currentSaveX = player.x
        this.currentSaveY = player.y
-        console.log("coucou")
     }
 
     death()
@@ -54,8 +53,5 @@ class Sauvegarde {
         this.player.player.setTexture('player');
         this.player.player.visible=true;
         this.player.player.setBounce(0, 0);
-        this.player.player.body.setSize(80, 130);
-        console.log("kfrgjhdhgds")
-
     }
 }

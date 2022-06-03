@@ -3,13 +3,10 @@ class Player {
 
     constructor(scene) {
         this.scene = scene
-        this.player = this.scene.physics.add.sprite(650, 150,'player');
-        this.player.body.setSize(100, 130);
+        this.player = this.scene.physics.add.sprite(10300, -550,'player');
+        this.player.body.setSize(138, 173);
         this.player.boule = false;
         this.animation();
-        this.player.canJump=true
-
-
     }
 
 animation()
@@ -30,7 +27,7 @@ frameRate: 12,
             start: 0,
             end: 6,
         }),
-        frameRate: 12,
+        frameRate: 7,
         repeat: 0,
     });
     this.scene.anims.create({
@@ -38,6 +35,42 @@ frameRate: 12,
         frames: this.scene.anims.generateFrameNumbers('bonce', {
             start: 2,
             end: 9,
+        }),
+        frameRate: 12,
+        repeat: 0,
+    });
+    this.scene.anims.create({
+        key: 'playermort',
+        frames: this.scene.anims.generateFrameNumbers('mort', {
+            start: 0,
+            end: 6,
+        }),
+        frameRate: 12,
+        repeat: 0,
+    });
+    this.scene.anims.create({
+        key: 'playertransfo',
+        frames: this.scene.anims.generateFrameNumbers('transfo', {
+            start: 0,
+            end: 6,
+        }),
+        frameRate: 14,
+        repeat: 0,
+    });
+    this.scene.anims.create({
+        key: 'reversetransfo',
+        frames: this.scene.anims.generateFrameNumbers('versere', {
+            start: 0,
+            end: 6,
+        }),
+        frameRate: 12,
+        repeat: 0,
+    });
+    this.scene.anims.create({
+        key: 'iddleplayer',
+        frames: this.scene.anims.generateFrameNumbers('iddleplay', {
+            start: 0,
+            end: 4,
         }),
         frameRate: 12,
         repeat: 0,
@@ -94,10 +127,10 @@ frameRate: 12,
 
         }
         else {
-            this.flag1=false
             if (this.player.body.onFloor()){
                 this.player.setVelocityY(-500);
                 this.player.play('jumpplayer', true)
+                this.player.body.setSize(138, 173);
                 console.log('jump');
             }
         }
@@ -108,14 +141,22 @@ frameRate: 12,
     {
         this.player.setVelocityX(400);
         this.player.setFlipX(false);
-        this.player.play('walkplayer', true)
+        if(!this.player.boule)
+        {
+            this.player.play('walkplayer', true)
+            this.player.body.setSize(138, 173);
+        }
     }
 
     moveLeft()
     {
         this.player.setVelocityX(-400);
         this.player.setFlipX(true);
-        this.player.play('walkplayer', true)
+        if(!this.player.boule)
+        {
+            this.player.play('walkplayer', true)
+            this.player.body.setSize(138, 173);
+        }
     }
     moveBack()
     {
@@ -125,6 +166,7 @@ frameRate: 12,
     stop()
     {
         this.player.setVelocityX(0);
+        //this.player.play('iddleplayer', true)
     }
 
     move()
@@ -132,7 +174,7 @@ frameRate: 12,
         if(this.player.body.onFloor() && this.player.boule)
         {
             this.player.play('rebond')
-            console.log('fd')
+            this.player.boule = true;
         }
         if (this.zDown)
         {
@@ -174,24 +216,23 @@ frameRate: 12,
     transform() {
         if (!this.player.boule)
         {
-
-
+            this.player.play('playertransfo')
             this.player.setTexture('ball')
             this.player.setBounce(1.4, 2);
-            this.player.body.setSize(150,126);
+            this.player.body.setSize(138, 173);
             this.player.body.setMaxVelocityY(860);
             this.player.body.setMaxVelocityX(600);
-            this.player.body.position.y = this.player.body.position.y - 30;
+            this.player.body.position.y = this.player.body.position.y - 50;
             this.player.boule = true;
 
         }
         else
         {
-
+            this.player.play('reversetransfo')
             this.player.setTexture('player');
             this.player.visible=true;
             this.player.setBounce(0, 0);
-            this.player.body.setSize(80, 130);
+            this.player.body.setSize(138, 173);
             this.player.boule = !this.player.boule;
         }
 

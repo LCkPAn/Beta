@@ -1,12 +1,21 @@
 class scene extends Phaser.Scene {
 
+    constructor() {
+        super('game');
+    }
+
+
     preload() {
 
 
         // At last image must be loaded with its JSON
-        this.load.spritesheet('walk','assets/animation/walk.png',{frameWidth: 160, frameHeight: 172});
-        this.load.spritesheet('jump','assets/animation/jump.png',{frameWidth: 167, frameHeight: 169});
+        this.load.spritesheet('walk','assets/animation/walk.png',{frameWidth: 138, frameHeight: 173});
+        this.load.spritesheet('jump','assets/animation/jump.png',{frameWidth: 151, frameHeight: 186});
         this.load.spritesheet('bonce','assets/animation/boulehair.png',{frameWidth: 150, frameHeight: 126});
+        this.load.spritesheet('mort','assets/animation/death.png',{frameWidth: 138, frameHeight: 130});
+        this.load.spritesheet('transfo','assets/animation/transformation.png',{frameWidth: 138, frameHeight: 130});
+        this.load.spritesheet('versere','assets/animation/inverse.png',{frameWidth: 138, frameHeight: 130});
+        this.load.spritesheet('iddleplay','assets/animation/iddle.png',{frameWidth: 138, frameHeight: 173});
 
 
         this.load.image('player', 'assets/images/child.png');
@@ -19,7 +28,7 @@ class scene extends Phaser.Scene {
         this.load.image('spike', 'assets/images/spike.png');
         this.load.image('move', 'assets/images/ech.png');
         this.load.image('col', 'assets/images/hce.png');
-        this.load.image('foe', 'assets/images/foe.png');
+        this.load.image('foer', 'assets/images/foe.png');
         this.load.image('spike', 'assets/images/spike.png');
         this.load.image('spikes', 'assets/images/ekips.png');
         this.load.image('background', 'assets/images/background.png');
@@ -48,15 +57,26 @@ class scene extends Phaser.Scene {
         const tilesetP5 = map.addTilesetImage('1er plan', 'tilelvl4');
 
 
-        this.paralaa = map.createLayer('Parallax2', tilesetP1);
-        this.paralaaa = map.createLayer('Parallaxdeux', tilesetP5);
+        this.treee = map.createLayer('Arbre2', tilesetP1);
         this.tree = map.createLayer('Arbre', tilesetP1);
-        this.alle = map.createLayer('special', tilesetP1);
+
+
+
+        this.paralaaa = map.createLayer('Parallaxdeux', tilesetP5);
+        this.paralaa = map.createLayer('Parallax2', tilesetP1);
         this.parala = map.createLayer('Parallax1', tilesetP5);
+
+        this.spetwo = map.createLayer('special2', tilesetP1);
+        this.speone = map.createLayer('special', tilesetP1);
+
         this.sole = map.createLayer('Sol', tilesetP2);
         this.solee = map.createLayer('Sol2', tilesetP3);
         this.soleee = map.createLayer('Sol3', tilesetP4);
+
         this.tray = map.createLayer('traits', tilesetP1);
+
+
+
 
 
 
@@ -85,17 +105,24 @@ class scene extends Phaser.Scene {
         this.tray.scrollFactorX=1;
         this.tray.scrollFactorY=1;
 
+        this.parala.scrollFactorX=1;
+        this.parala.scrollFactorY=1;
+
         this.paralaa.scrollFactorX=0.8;
         this.paralaa.scrollFactorY=1;
 
         this.paralaaa.scrollFactorX=0.8;
         this.paralaaa.scrollFactorY=1;
 
-        this.tree.scrollFactorX=0.8;
+        this.tree.scrollFactorX=1;
         this.tree.scrollFactorY=1;
 
-        this.parala.scrollFactorX=1;
-        this.parala.scrollFactorY=1;
+        this.treee.scrollFactorX=0.8;
+        this.treee.scrollFactorY=1;
+
+
+
+
 
 
 
@@ -110,6 +137,7 @@ class scene extends Phaser.Scene {
         this.pointCamera.body.setAllowGravity(false);
         this.pointCamera.setImmovable(true);
         this.cameras.main.setRoundPixels(true);
+        this.cameras.main.setZoom(0.80);
 
 
 
@@ -147,15 +175,9 @@ class scene extends Phaser.Scene {
 
 
         // vie
-
-
-
         this.player.initKeyboard();
 
     }
-
-
-
 
 
     update()

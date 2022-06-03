@@ -13,24 +13,20 @@ class foe{
 
 
         this.ennemy = this.scene.physics.add.group({
-            allowGravity: false,
-            immovable: true
+            allowGravity: true,
+            immovable: true,
         });
         map.getObjectLayer('Enemy').objects.forEach((ennemy) => {
-            const ennemySprite = this.ennemy.create(ennemy.x, ennemy.y, 'ennemy').setOrigin(0).setBodySize(30,30).setDepth(3);
+            const ennemySprite = this.ennemy.create(ennemy.x, ennemy.y, 'foer').setOrigin(0);
             this.ennemyPositionX.push(ennemy.x);
             this.ennemyPositionY.push(ennemy.y);
-
             this.Tuch();
         });
         for(var i = 0; i < this.ennemy.getChildren().length; i++) {
-            //this.ennemy.getChildren()[i].anims.play('ennemyIdle');
             this.ennemy.getChildren()[i].body.setSize(150,150);
-            this.ennemy.getChildren()[i].flagExclamation = true;
-            this.ennemy.getChildren()[i].flagTween=true;
             this.ennemy.getChildren()[i].tween = this.scene.tweens.add({
                 targets: this.ennemy.getChildren()[i],
-                x:  this.ennemy.getChildren()[i].x + 300,
+                x:  this.ennemy.getChildren()[i].x,
                 y:  this.ennemy.getChildren()[i].y,
                 ease: 'linear',
                 duration: 3000,
@@ -62,7 +58,6 @@ class foe{
 
                 } else {
                     this.ennemy.getChildren()[i].tween.play()
-                    console.log("tween")
                     this.ennemy.getChildren()[i].flagTween=true;
 
                 }
