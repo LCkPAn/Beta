@@ -16,17 +16,6 @@ class Brick{
             this.scene.physics.add.overlap(this.echelle, this.player.player, this.tuch.bind(this),null,this);
         })
 
-        /*// Platform qui traverse
-        this.travers = this.scene.physics.add.group({
-            allowGravity: false,
-            immovable: true,
-        });
-        map.getObjectLayer('Travers').objects.forEach((tra) => {
-            this.traversSprite = this.travers.create(tra.x, tra.y, tra.height).setOrigin(0).setDisplaySize(tra.width,tra.height).visible=true;
-            this.scene.physics.add.collider( this.travers, this.player.player, this.flou );
-        });*/
-
-
     }
 
     tuch(echelle, player) {
@@ -73,22 +62,5 @@ class Brick{
         }
 
     }
-
-    flou(travers, player)
-    {
-        let me = this
-        if (me.player.player.body.velocity.y > 0)
-        {
-            me.scene.removeCollider = true;
-        }
-        else
-        {
-            me.scene.collideCollider = false;
-        }
-
-    }
-
-
-
 
 }

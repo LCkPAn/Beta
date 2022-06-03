@@ -24,6 +24,7 @@ class foe{
         });
         for(var i = 0; i < this.ennemy.getChildren().length; i++) {
             this.ennemy.getChildren()[i].body.setSize(150,150);
+            this.ennemy.getChildren()[i].body.setAllowGravity(false)
             this.ennemy.getChildren()[i].tween = this.scene.tweens.add({
                 targets: this.ennemy.getChildren()[i],
                 x:  this.ennemy.getChildren()[i].x,

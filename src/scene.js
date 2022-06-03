@@ -33,6 +33,8 @@ class scene extends Phaser.Scene {
         this.load.image('spikes', 'assets/images/ekips.png');
         this.load.image('background', 'assets/images/background.png');
         this.load.image ('water', 'assets/images/watercolor.png');
+        this.load.image ('waterb', 'assets/images/watercolore.png');
+        this.load.image ('waterr', 'assets/images/watercolour.png');
         this.load.image('ball', 'assets/images/bouledecheuveux.png');
 
         // Load the export Tiled JSON
@@ -48,7 +50,14 @@ class scene extends Phaser.Scene {
         //Tilled créer la base
         this.backgroundImage = this.add.image(-190, -200, 'background').setOrigin(0, 0);
         this.backgroundImage.setScale(1.5,1.5);
+
         this.add.image(-500,-150, 'water').setAlpha(0.1);
+        this.add.image(4300,0, 'waterb').setAlpha(0.2);
+        this.add.image(8000,-200, 'water').setAlpha(0.3);
+        this.add.image(11700,-600, 'waterb').setAlpha(0.3);
+        this.add.image(21600,-1200, 'waterr').setAlpha(0.1);
+
+
         const map = this.make.tilemap({key: 'map'});
         const tilesetP1 = map.addTilesetImage('Tileaqua', 'tilaqua');
         const tilesetP2 = map.addTilesetImage('tilesol', 'tilelvl1');
@@ -74,10 +83,6 @@ class scene extends Phaser.Scene {
         this.soleee = map.createLayer('Sol3', tilesetP4);
 
         this.tray = map.createLayer('traits', tilesetP1);
-
-
-
-
 
 
         this.cursors = this.input.keyboard.createCursorKeys();
@@ -121,16 +126,6 @@ class scene extends Phaser.Scene {
         this.treee.scrollFactorY=1;
 
 
-
-
-
-
-
-
-
-
-
-
         // Camera
         this.pointCamera = this.physics.add.sprite(0, 0);
         this.cameras.main.startFollow(this.pointCamera, true,1,1,0, 200);
@@ -166,9 +161,13 @@ class scene extends Phaser.Scene {
         map.getObjectLayer('Collide').objects.forEach((col) => {
             const collideSprite = this.add.rectangle(col.x,col.y,col.width,col.height).setOrigin(0,0)
             this.collide.add(collideSprite)
-
-
         });
+
+
+
+
+        this.physics.add.overlap(this.player.player, this.endla,null,this);
+
         this.physics.add.collider(this.player.player, this.collide);
         this.physics.add.collider(this.collide, this.foe.ennemy)
 
@@ -178,6 +177,7 @@ class scene extends Phaser.Scene {
         this.player.initKeyboard();
 
     }
+
 
 
     update()

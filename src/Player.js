@@ -3,10 +3,12 @@ class Player {
 
     constructor(scene) {
         this.scene = scene
-        this.player = this.scene.physics.add.sprite(10300, -550,'player');
+        this.player = this.scene.physics.add.sprite(25000, -3000,'player');
         this.player.body.setSize(138, 173);
         this.player.boule = false;
         this.animation();
+        this.spaceDown=false;
+        this.lock=false;
     }
 
 animation()
@@ -36,7 +38,7 @@ frameRate: 12,
             start: 2,
             end: 9,
         }),
-        frameRate: 12,
+        frameRate: 9,
         repeat: 0,
     });
     this.scene.anims.create({
@@ -70,9 +72,9 @@ frameRate: 12,
         key: 'iddleplayer',
         frames: this.scene.anims.generateFrameNumbers('iddleplay', {
             start: 0,
-            end: 4,
+            end: 5,
         }),
-        frameRate: 12,
+        frameRate: 5,
         repeat: 0,
     });
 
@@ -116,6 +118,7 @@ frameRate: 12,
                     break;
                 case Phaser.Input.Keyboard.KeyCodes.SPACE:
                     me.spaceDown=false;
+                    me.lock=false;
                     break;
             }
         });
@@ -129,7 +132,7 @@ frameRate: 12,
         else {
             if (this.player.body.onFloor()){
                 this.player.setVelocityY(-500);
-                this.player.play('jumpplayer', true)
+                this.player.play('jumpplayer')
                 this.player.body.setSize(138, 173);
                 console.log('jump');
             }
@@ -141,7 +144,7 @@ frameRate: 12,
     {
         this.player.setVelocityX(400);
         this.player.setFlipX(false);
-        if(!this.player.boule)
+        if(!this.player.boule && this.player.body.onFloor())
         {
             this.player.play('walkplayer', true)
             this.player.body.setSize(138, 173);
@@ -152,10 +155,11 @@ frameRate: 12,
     {
         this.player.setVelocityX(-400);
         this.player.setFlipX(true);
-        if(!this.player.boule)
+        if(!this.player.boule && this.player.body.onFloor())
         {
             this.player.play('walkplayer', true)
             this.player.body.setSize(138, 173);
+
         }
     }
     moveBack()
@@ -165,8 +169,16 @@ frameRate: 12,
 
     stop()
     {
-        this.player.setVelocityX(0);
-        //this.player.play('iddleplayer', true)
+        if(!this.player.boule)
+        {
+            this.player.setVelocityX(0);
+            if (this.player.body.velocity.y === 0){
+                this.player.play('iddleplayer', true)
+                this.player.body.setSize(138, 173);
+                this.player.setScale(1);
+            }
+
+        }
     }
 
     move()
@@ -176,13 +188,13 @@ frameRate: 12,
             this.player.play('rebond')
             this.player.boule = true;
         }
-        if (this.zDown)
-        {
-            this.jump();
-            this.flag1=true;
-        }
+
         switch (true)
         {
+            case this.zDown:
+                this.jump();
+                this.flag1=true;
+                break
             case this.qDown:
                 this.moveLeft()
                 break;
@@ -219,7 +231,7 @@ frameRate: 12,
             this.player.play('playertransfo')
             this.player.setTexture('ball')
             this.player.setBounce(1.4, 2);
-            this.player.body.setSize(138, 173);
+            this.player.body.setSize(138, 140);
             this.player.body.setMaxVelocityY(860);
             this.player.body.setMaxVelocityX(600);
             this.player.body.position.y = this.player.body.position.y - 50;
