@@ -15,7 +15,7 @@ class Sauvegarde {
             immovable: true
         });
         map.getObjectLayer('Checkpointe').objects.forEach((save) => {
-            const saveSprite = this.saves.create(save.x, save.y, 'save').setBodySize(save.width, save.height);
+            const saveSprite = this.saves.create(save.x, save.y, 'save').setBodySize(save.width, save.height).setVisible(false);
             this.scene.physics.add.overlap(this.player.player, this.saves, this.resauvegarde, null, this)
 
         });
